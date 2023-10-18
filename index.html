@@ -16,11 +16,18 @@
             data() {
                 console.log('data this', this)
                 return{
-                    msg: 'hello'
+                    msg: 'hello',
+                    a: {
+                        b: {
+                            c:20
+                        }
+                    },
+                    d: 40,
+                    list: [1, 2, 3]
                 }
             }
         })
-        console.log('vm', vm._data)
+        console.log('vm', vm._data.list.push(4), vm._data.list)
     </script>
 </body>
 </html>

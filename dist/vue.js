@@ -50,6 +50,26 @@
     return typeof key === "symbol" ? key : String(key);
   }
 
+  // 获取数组的方法
+  var oldArrayProtoMethods = Array.prototype;
+  console.log('oldArrayProtoMethods', oldArrayProtoMethods);
+  // 继承
+  var ArrayMethods = Object.create(oldArrayProtoMethods);
+  console.log('ArrayMethods', ArrayMethods);
+  // 劫持
+  var methods = ["push", "pop", "unshift", "shift", "splice"];
+  methods.forEach(function (item) {
+    console.log('ArrayMethods[item]', ArrayMethods[item]);
+    ArrayMethods[item] = function () {
+      console.log('劫持数组');
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      var result = oldArrayProtoMethods[item].apply(this, args); // this -> list:[]
+      return result;
+    };
+  });
+
   function observer(data) {
     if (_typeof(data) !== 'object' || data === null) {
       return data;
@@ -59,7 +79,12 @@
   var Observer = /*#__PURE__*/function () {
     function Observer(value) {
       _classCallCheck(this, Observer);
-      this.walk(value);
+      if (Array.isArray(value)) {
+        console.log('array', value);
+        value.__proto__ = ArrayMethods;
+      } else {
+        this.walk(value);
+      }
     }
     _createClass(Observer, [{
       key: "walk",
@@ -73,7 +98,7 @@
       }
     }]);
     return Observer;
-  }();
+  }(); // 只能对对象中的属性劫持，无法操作数组
   function defineReactive(data, key, value) {
     observer(value);
     Object.defineProperty(data, key, {
