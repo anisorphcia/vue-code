@@ -30,6 +30,7 @@ methods.forEach(item => {
                 break
         }
         console.log('inserted', inserted)
+        // this -> value
         let ob = this.__ob__
         if (inserted) {
             ob.observeArray(inserted)
