@@ -66,6 +66,22 @@
         args[_key] = arguments[_key];
       }
       var result = oldArrayProtoMethods[item].apply(this, args); // this -> list:[]
+      // 对添加的数组对象进行劫持
+      var inserted;
+      switch (item) {
+        case 'push':
+        case 'unshift':
+          inserted = args;
+          break;
+        case 'splice':
+          inserted = args.splice(2);
+          break;
+      }
+      console.log('inserted', inserted);
+      var ob = this.__ob__;
+      if (inserted) {
+        ob.observeArray(inserted);
+      }
       return result;
     };
   });
@@ -79,9 +95,16 @@
   var Observer = /*#__PURE__*/function () {
     function Observer(value) {
       _classCallCheck(this, Observer);
+      // 给data定义一个属性
+      Object.defineProperty(value, '__ob__', {
+        enumerable: false,
+        value: this
+      });
       if (Array.isArray(value)) {
         console.log('array', value);
         value.__proto__ = ArrayMethods;
+        // 数组中的元素是对象
+        this.observeArray(value);
       } else {
         this.walk(value);
       }
@@ -94,6 +117,16 @@
           var key = keys[i];
           var value = data[key];
           defineReactive(data, key, value);
+        }
+      }
+    }, {
+      key: "observeArray",
+      value: function observeArray(value) {
+        // value.forEach(el => {
+        //     observer(el)
+        // })
+        for (var i = 0; i < value.length; ++i) {
+          observer(value[i]);
         }
       }
     }]);
