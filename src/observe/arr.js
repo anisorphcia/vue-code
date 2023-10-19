@@ -21,13 +21,13 @@ methods.forEach(item => {
         // 对添加的数组对象进行劫持
         let inserted
         switch(item){
-                case 'push':
-                case 'unshift':
-                    inserted = args
-                    break
-                case 'splice':
-                    inserted = args.splice(2)
-                    break
+            case 'push':
+            case 'unshift':
+                inserted = args
+                break
+            case 'splice':
+                inserted = args.splice(2)
+                break
         }
         console.log('inserted', inserted)
         let ob = this.__ob__
