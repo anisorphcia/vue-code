@@ -14,7 +14,6 @@ function initData(vm){
     data = vm._data = typeof data === 'function' ? data.call(vm) : data
     // 将data上的所有属性代理到实例上 vm {a:1, b:2}
     for (let key in data) {
-        console.log('key', key)
         proxy(vm, '_data', key)
     }
     // 数据劫持
