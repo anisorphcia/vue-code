@@ -10,16 +10,47 @@ const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g     // {{}}
 // const doctype = /^]+>/i
 // const comment = /^<!–/
 // const conditionalComment = /^<![/
-function start(tag, attrs) {
 
+function createAstElement(tag, attrs) {
+    return {
+        tag,
+        attrs,
+        children: [],
+        type: 1,
+        parent: null
+    }
+}
+
+let root
+let createParent
+let stack = []
+
+function start(tag, attrs) {
+    let element = createAstElement(tag, attrs)
+    if (!root) {
+        root = element
+    }
+    createParent = element
+    stack.push(element)
 }
 
 function charts(text) {
-
+    text = text.replace(/s/g, '')   // 去掉空格
+    if(text){
+        createParent.children.push({
+            type: 3,
+            text
+        })
+    }
 }
 
 function end(tag) {
-
+    let element = stack.pop()
+    createParent = stack[stack.length - 1]
+    if (createParent) {
+        element.parent = createParent.tag
+        createParent.children.push(element)
+    }
 }
 
 
@@ -84,6 +115,8 @@ function parseHTML(html) {
     function advance(n) {
         html = html.substring(n)    // 删除后的字符串 id="app">hello</div>
     }
+    console.log('root', root)
+    return root
 }
 
 
