@@ -1,4 +1,5 @@
 import { initState } from "./initState"
+import { compileToFunction } from './compile/index'
 
 export function initMixin(Vue){
     Vue.prototype._init = function(options){
@@ -23,6 +24,9 @@ export function initMixin(Vue){
                 // get html
                 el = el.outerHTML
                 console.log(el)
+
+                // transfer to ast tree
+                let ast = compileToFunction(el)
             }
         }
     }
