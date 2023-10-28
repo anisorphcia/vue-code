@@ -35,7 +35,7 @@ function start(tag, attrs) {
 }
 
 function charts(text) {
-    text = text.replace(/\s*/g, '')   // 去掉空格
+    text = text.replace(/\s+/g, '')   // 去掉空格
     if(text){
         createParent.children.push({
             type: 3,
