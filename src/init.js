@@ -1,10 +1,9 @@
 import { initState } from "./initState"
 import { compileToFunction } from './compile/index'
+import { mountComponent } from "./lifecycle"
 
 export function initMixin(Vue){
     Vue.prototype._init = function(options){
-        console.log('this', this)
-        console.log('options', options)
         let vm = this
         vm.$options = options
         // init
@@ -23,12 +22,17 @@ export function initMixin(Vue){
             if (!template && el) {
                 // get html
                 el = el.outerHTML
-                console.log(el)
 
                 // transfer to ast tree
-                let ast = compileToFunction(el)
+                let render = compileToFunction(el)
+                console.log('ast', render)
+
+                // 将 render 函数变成 vnode
+                // 将 vnode 变成真实 DOM 放到页面
+                options.render = render
             }
         }
+        mountComponent(vm, el)
     }
 }
 

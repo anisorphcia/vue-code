@@ -8,15 +8,14 @@ export function generate(el) {
     // let code = `_c('${el.tag}',${el.attrs.length ? `${genProps(el.attrs)}` : 'undefined'}${
     //     children ? `,${children}` : ''
     //     })`
-    console.log('code', code)
     // _c(div,{id: "app",style: {"color":" pink"," font-size":" 20px"}})
+    console.log('code', code)
     return code
 }
 
 function genChildren(el) {
     // 处理子节点
     const children = el.children
-    console.log('children', children)
     if (children) {
         return children.map(child => gen(child)).join(',')
     }
@@ -37,9 +36,7 @@ function gen(node) {
         // 正则多次检测符合条件的字符串时，第二次会返回false，需要将lastIndex 置为 0
         let lastIndex = defaultTagRE.lastIndex = 0
         let match
-        console.log('text', text)
         while (match = defaultTagRE.exec(text)) {
-            console.log('match', match)
             let index = match.index
             if (index > lastIndex) {
                 // 添加内容
@@ -48,11 +45,9 @@ function gen(node) {
             tokens.push(`_s(${match[1].trim()})`)
             lastIndex = index + match[0].length
         }
-        console.log('index', lastIndex, text.length)
         if (lastIndex < text.length) {
             tokens.push(JSON.stringify(text.slice(lastIndex)))
         }
-        console.log('tokens', tokens)
         return `_v(${tokens.join('+')})`
     }
 }
