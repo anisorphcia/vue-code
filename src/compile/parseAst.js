@@ -63,7 +63,7 @@ export function parseHTML(html) {
             const startTagMatch = parseStartTag()   // 开始标签的内容
             if (startTagMatch) {
                 start(startTagMatch.tagName, startTagMatch.attrs)
-                console.log('startTagMatch', startTagMatch)
+                // console.log('startTagMatch', startTagMatch)
                 continue
             }
             // end tag
@@ -71,7 +71,7 @@ export function parseHTML(html) {
             if (endTagMatch) {
                 advance(endTagMatch[0].length)
                 end(endTagMatch[1])
-                console.log('endTag', endTagMatch)
+                // console.log('endTag', endTagMatch)
                 continue
             }
         }
@@ -79,7 +79,7 @@ export function parseHTML(html) {
         if (textEnd > 0) {
             // 处理文本
             text = html.substring(0, textEnd)
-            console.log('textEnd', text)   // hello {{ msg }}
+            // console.log('textEnd', text)   // hello {{ msg }}
         }
         if (text) {
             advance(text.length)
@@ -115,6 +115,6 @@ export function parseHTML(html) {
     function advance(n) {
         html = html.substring(n)    // 删除后的字符串 id="app">hello</div>
     }
-    console.log('root', root)
+    // console.log('root', root)
     return root
 }
