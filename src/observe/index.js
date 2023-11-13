@@ -15,7 +15,6 @@ class Observer{
             value: this
         })
         if (Array.isArray(value)){
-            console.log('array', value)
             value.__proto__ = ArrayMethods
             // 数组中的元素是对象
             this.observeArray(value)
