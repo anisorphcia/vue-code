@@ -1,9 +1,9 @@
-import { initMixin } from "./init"
-import { lifecycleMixin } from "./lifecycle"
-import { renderMixin } from "./vnode/index"
+import { initMixin } from './init'
+import { lifecycleMixin } from './lifecycle'
+import { renderMixin } from './vnode/index'
 
-function Vue(options){
-    this._init(options)
+function Vue(options) {
+  this._init(options)
 }
 
 initMixin(Vue)
