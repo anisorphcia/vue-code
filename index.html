@@ -13,6 +13,7 @@
     </div>
     <script src="dist/vue.js"></script>
     <script>
+<<<<<<< HEAD
         Vue.Mixin({
             created: function a() { }
         })
@@ -26,6 +27,14 @@
             el: '#app',
             data() {
                 return {
+=======
+        // console.log(Vue)
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                // console.log('data this', this)
+                return{
+>>>>>>> 7a3475f90b12711b48eddf08444ef9ea8ce2a36c
                     msg: 'asakao',
                     a: {
                         b: {
@@ -40,7 +49,11 @@
                 }
             }
         })
+<<<<<<< HEAD
         console.log('Vue', Vue)
+=======
+        // console.log('vm', vm.msg)
+>>>>>>> 7a3475f90b12711b48eddf08444ef9ea8ce2a36c
         // vue 初始渲染 -> 先初始化数据 -> 将模板进行编译 -> 
         // 变成render() -> 生成虚拟节点 -> 变成真实dom -> 放入页面
     </script>

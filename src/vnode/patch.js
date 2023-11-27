@@ -1,4 +1,5 @@
 export function patch(oldNode, vnode) {
+<<<<<<< HEAD
     // vnode -> real dom
     let el = createEl(vnode)
     // console.log('patch', el, oldNode)
@@ -7,22 +8,32 @@ export function patch(oldNode, vnode) {
     parentEl.insertBefore(el, oldNode.nextsibling)
     parentEl.removeChild(oldNode)
     return el
+=======
+  // vnode -> real dom
+  let el = createEl(vnode)
+  // console.log('patch', el, oldNode)
+  // 替换
+  let parentEl = oldNode.parentNode
+  parentEl.insertBefore(el, oldNode.nextsibling)
+  parentEl.removeChild(oldNode)
+  return el
+>>>>>>> 7a3475f90b12711b48eddf08444ef9ea8ce2a36c
 }
 
 function createEl(vnode) {
-    let { tag, children, key, data, text } = vnode
-    if (typeof tag === 'string') {
-        vnode.el = document.createElement(tag)
-        if (children.length > 0) {
-            children.forEach(child => {
-                vnode.el.appendChild(createEl(child))
-            })
-        }
-    } else {
-        // text
-        vnode.el = document.createTextNode(text)
+  let { tag, children, key, data, text } = vnode
+  if (typeof tag === 'string') {
+    vnode.el = document.createElement(tag)
+    if (children.length > 0) {
+      children.forEach((child) => {
+        vnode.el.appendChild(createEl(child))
+      })
     }
-    return vnode.el
+  } else {
+    // text
+    vnode.el = document.createTextNode(text)
+  }
+  return vnode.el
 }
 
 // vue 的渲染流程
