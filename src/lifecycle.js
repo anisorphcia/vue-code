@@ -12,6 +12,5 @@ export function lifecycleMixin(Vue) {
         let vm = this
         // old dom , vmode
         vm.$el = patch(vm.$el, vnode)
-        console.log('vm', vm)
     }
 }

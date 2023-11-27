@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <div id="app" style="color: pink; font-size: 20px;"> hello {{ msg }} <h1> anyway </h1></div>
+    <div id="app" style="color: pink; font-size: 20px;"> hello {{ msg }} <h1> anyway </h1>
+    </div>
     <script src="dist/vue.js"></script>
     <script>
-        console.log(Vue)
+        Vue.Mixin({
+            created: function a() { }
+        })
+        Vue.Mixin({
+            created: function b() { }
+        })
+        Vue.Mixin({
+            mounted: function b() { }
+        })
         let vm = new Vue({
             el: '#app',
             data() {
-                console.log('data this', this)
-                return{
+                return {
                     msg: 'asakao',
                     a: {
                         b: {
-                            c:20
+                            c: 20
                         }
                     },
                     d: 40,
@@ -30,9 +40,10 @@
                 }
             }
         })
-        console.log('vm', vm.msg)
+        console.log('Vue', Vue)
         // vue 初始渲染 -> 先初始化数据 -> 将模板进行编译 -> 
         // 变成render() -> 生成虚拟节点 -> 变成真实dom -> 放入页面
     </script>
 </body>
+
 </html>

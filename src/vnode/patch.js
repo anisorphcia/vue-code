@@ -1,7 +1,7 @@
 export function patch(oldNode, vnode) {
     // vnode -> real dom
     let el = createEl(vnode)
-    console.log('patch', el, oldNode)
+    // console.log('patch', el, oldNode)
     // 替换
     let parentEl = oldNode.parentNode
     parentEl.insertBefore(el, oldNode.nextsibling)

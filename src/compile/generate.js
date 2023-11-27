@@ -9,7 +9,6 @@ export function generate(el) {
     //     children ? `,${children}` : ''
     //     })`
     // _c(div,{id: "app",style: {"color":" pink"," font-size":" 20px"}})
-    console.log('code', code)
     return code
 }
 

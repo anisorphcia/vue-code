@@ -14,7 +14,6 @@ export function compileToFunction(el) {
      */
     // 将 render 字符串变成函数
     let render = new Function(`with(this){return ${code}}`)
-    console.log('render', render)
 
     return render
 }

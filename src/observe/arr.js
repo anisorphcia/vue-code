@@ -1,9 +1,9 @@
 // 获取数组的方法
 let oldArrayProtoMethods = Array.prototype
-console.log('oldArrayProtoMethods', oldArrayProtoMethods)
+// console.log('oldArrayProtoMethods', oldArrayProtoMethods)
 // 继承
 export let ArrayMethods = Object.create(oldArrayProtoMethods)
-console.log('ArrayMethods', ArrayMethods)
+// console.log('ArrayMethods', ArrayMethods)
 // 劫持
 let methods = [
     "push",

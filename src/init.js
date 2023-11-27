@@ -26,7 +26,6 @@ export function initMixin(Vue){
 
                 // transfer to ast tree
                 let render = compileToFunction(el)
-                console.log('ast', render)
 
                 // 将 render 函数变成 vnode
                 // 将 vnode 变成真实 DOM 放到页面
