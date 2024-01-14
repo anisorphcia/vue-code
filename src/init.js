@@ -24,14 +24,9 @@ export function initMixin(Vue) {
         // get html
         el = el.outerHTML
 
-<<<<<<< HEAD
-                // transfer to ast tree
-                let render = compileToFunction(el)
-=======
         // transfer to ast tree
         let render = compileToFunction(el)
         // console.log('ast', render)
->>>>>>> 7a3475f90b12711b48eddf08444ef9ea8ce2a36c
 
         // 将 render 函数变成 vnode
         // 将 vnode 变成真实 DOM 放到页面
