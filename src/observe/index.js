@@ -15,6 +15,7 @@ class Observer {
       enumerable: false,
       value: this,
     })
+    this.dep = new Dep()  // 给所有对象类型增加一个 dep
     if (Array.isArray(value)) {
       value.__proto__ = ArrayMethods
       // 数组中的元素是对象
@@ -43,7 +44,7 @@ class Observer {
 
 // 只能对对象中的属性劫持，无法操作数组
 function defineReactive(data, key, value) {
-  observer(value)
+  let childDep = observer(value)
   let dep = new Dep() // 给每一个属性都添加一个dep
   Object.defineProperty(data, key, {
     get() {
