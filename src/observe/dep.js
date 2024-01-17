@@ -1,5 +1,3 @@
-import { watch } from "rollup"
-
 let id = 0
 class Dep {
   constructor() {

@@ -10,8 +10,9 @@
   <body>
     <div id="app" style="color: pink; font-size: 20px">
       hello {{ msg }}
-      <h1>anyway</h1>
+      <h1>{{ a.b.c }}</h1>
       <h2>{{ name }}</h2>
+      <h2>{{ list }}</h2>
     </div>
     <script src="dist/vue.js"></script>
     <script>
@@ -44,21 +45,25 @@
             d: 40,
             list: [1, 2, 3],
             list1: [{ key: 1 }],
-            name: 'null'
+            name: 'null',
           }
         },
-        created(){
+        created() {
           console.log('index created')
-        }
+        },
       })
 
-      setTimeout(() => {
-        vm.name = 'nakamoto'
-        // vm._update(vm._render())
-      }, 100)
+      // setTimeout(() => {
+      //   vm.name = 'nakamoto'
+      //   // vm._update(vm._render())
+      // }, 100)
       // 数据变化，自动更新视图  vm._update(vm._render())
       // vue中更新组件，以组件为单位，给每一组件添加一个 watcher
       console.log('vm index', vm)
+
+      setTimeout(() => {
+        vm.list.push(4)
+      }, 200)
 
       /**
        * 1.实现对象收集依赖
@@ -68,8 +73,8 @@
        *   2.2.1 获取到当前的 dep
        *   2.2.2 当数组取值的时候，让数组的 dep 记住这个 watcher
        *   2.2.3 更新数组的时候调用 push，找到这个 watcher 进行更新
-       * 
-      */
+       *
+       */
 
       console.log('Vue', Vue)
       // vue 初始渲染 -> 先初始化数据 -> 将模板进行编译 ->
