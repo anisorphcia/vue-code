@@ -56,7 +56,7 @@ function defineReactive(data, key, value) {
           childDep.dep.depend() // 数组收集
         }
       }
-      console.log('dev', dep)
+      // console.log('dev', dep)
       return value
     },
     set(newValue) {
