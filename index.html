@@ -62,7 +62,10 @@
       console.log('vm index', vm)
 
       setTimeout(() => {
+        // 数据更新多次，只需要调用 vm._update(vm._render()) 一次即可
+        // 通过 vue 异步， 数据更新后，不会马上执行
         vm.list.push(4)
+        vm.list.push(5)
       }, 200)
 
       /**
