@@ -1,4 +1,5 @@
 import { popTarget, pushTarget } from './dep'
+import { nextTick } from '../utils/nextTick'
 
 let id = 0
 class watcher {
@@ -50,6 +51,12 @@ class watcher {
 let queue = []
 let has = {}
 let pending = false
+function flushWatcher() {
+  queue.forEach((item) => item.run())
+  queue = []
+  has = {}
+  pending = false
+}
 function queueWatcher(watcher) {
   let id = watcher.id // 每个组件都是同一个id
   // 防抖 == 和 === 有区别
@@ -58,12 +65,13 @@ function queueWatcher(watcher) {
     has[id] = true
     if (!pending) {
       // 异步
-      setTimeout(() => {
-        queue.forEach(item => item.run())
-        queue = []
-        has = {}
-        pending = false
-      }, 0)
+      // setTimeout(() => {
+      //   queue.forEach(item => item.run())
+      //   queue = []
+      //   has = {}
+      //   pending = false
+      // }, 0)
+      nextTick(flushWatcher)
     }
     pending = true
   }

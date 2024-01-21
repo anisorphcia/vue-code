@@ -66,6 +66,10 @@
         // 通过 vue 异步， 数据更新后，不会马上执行
         vm.list.push(4)
         vm.list.push(5)
+        vm.$nextTick(() => {
+          // 数据更新完之后获取到最新的 DOM
+          console.log(vm.$el.innerHTML)
+        })
       }, 200)
 
       /**

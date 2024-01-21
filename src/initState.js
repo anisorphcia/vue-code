@@ -1,4 +1,5 @@
 import { observer } from "./observe/index"
+import { nextTick } from "./utils/nextTick"
 
 export function initState(vm){
     let opts = vm.$options
@@ -27,6 +28,13 @@ function proxy(vm, source, key){
         },
         set(newValue){
             vm[source][key] = newValue
-        }
+        } 
     })
+}
+
+export function stateMixin(vm) {
+  vm.prototype.$nextTick = function(cb){
+    // nextTick 数据更新后获取到最新的 dom
+    nextTick(cb)
+  }
 }
