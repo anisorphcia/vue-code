@@ -36,7 +36,7 @@ function mergeHook(parentVal, childVal) {
 }
 
 export function mergeOptions(parent, child) {
-  console.log('utils', parent, child)
+  // console.log('utils', parent, child)
   const options = {}
   for (let key in parent) {
     mergeFiled(key)
@@ -51,6 +51,6 @@ export function mergeOptions(parent, child) {
       options[key] = child[key]
     }
   }
-  console.log('options', options)
+  // console.log('options', options)
   return options
 }
