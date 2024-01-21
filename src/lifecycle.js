@@ -9,7 +9,9 @@ export function mountComponent(vm, el) {
   let updateComponent = () => {
     vm._update(vm._render())
   }
-  new watcher(vm, updateComponent, () => {}, true)
+  new watcher(vm, updateComponent, () => {
+    callHook(vm, 'updated')
+  }, true)
   callHook(vm, 'mounted')
 }
 
