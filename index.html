@@ -13,23 +13,24 @@
       <h1>{{ a.b.c }}</h1>
       <h2>{{ name }}</h2>
       <h2>{{ list }}</h2>
+      <h2>d: {{ d }}</h2>
     </div>
     <script src="dist/vue.js"></script>
     <script>
       // 全局声明周期
       Vue.Mixin({
         created: function a() {
-          console.log('index Mixin created a')
+          // console.log('index Mixin created a')
         },
       })
       Vue.Mixin({
         created: function b() {
-          console.log('index Mixin created b')
+          // console.log('index Mixin created b')
         },
       })
       Vue.Mixin({
         mounted: function b() {
-          console.log('index Mixin mounted v')
+          // console.log('index Mixin mounted v')
         },
       })
       let vm = new Vue({
@@ -46,6 +47,17 @@
             list: [1, 2, 3],
             list1: [{ key: 1 }],
             name: 'null',
+          }
+        },
+        watch: {
+          // 'd'(newValue, oldValue){
+          //   console.log('watch', newValue)
+          // },
+          fun:{
+            handler(){
+              console.log('xxx')
+            },
+            immediate: true
           }
         },
         created() {

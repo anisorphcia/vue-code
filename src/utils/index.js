@@ -15,9 +15,9 @@ let states = {}
 states.data = function (parentVal, childVal) {
   return childVal
 }
-states.computed = function () {}
-states.watch = function () {}
-states.methods = function () {}
+// states.computed = function () {}
+// states.watch = function () {}
+// states.methods = function () {}
 // 便利生命周期
 HOOKS.forEach((hook) => {
   states[hook] = mergeHook
