@@ -1,5 +1,6 @@
 import { observer } from "./observe/index"
 import { nextTick } from "./utils/nextTick"
+import Watcher from './observe/watcher'
 
 export function initState(vm) {
     let opts = vm.$options
@@ -27,30 +28,30 @@ function initData(vm) {
 function initWatch(vm) {
     let watch = vm.$options.watch
     // 遍历
-    for(let key in watch){
+    for (let key in watch) {
         let handler = watch[key]
-        if(Array.isArray(handler)){
+        if (Array.isArray(handler)) {
             // 数组
             handler.forEach(item => {
                 createrWatcher(vm, key, item)
             })
-        }else{
+        } else {
             // 对象，字符，函数
             createrWatcher(vm, key, handler)
         }
     }
 }
 
-function createrWatcher(vm, exprOrfn, handler, options){
+function createrWatcher(vm, exprOrfn, handler, options) {
     // 处理handler
-    if(typeof handler === 'object'){
+    if (typeof handler === 'object') {
         options = handler
         handler = handler.handler
     }
-    if(typeof handler === 'string'){
+    if (typeof handler === 'string') {
         handler = vm[handler]
     }
-    return vm.$watch(exprOrfn, handler, options)
+    return vm.$watch(vm, exprOrfn, handler, options)
 }
 
 function proxy(vm, source, key) {
@@ -69,8 +70,11 @@ export function stateMixin(vm) {
         // nextTick 数据更新后获取到最新的 dom
         nextTick(cb)
     }
-    vm.prototype.$watch = function(exprOrfn, handler, options) {
+    vm.prototype.$watch = function (Vue, exprOrfn, handler, options = {}) {
         // console.log(exprOrfn, handler, options)
-        
+        let watcher = new Watcher(Vue, exprOrfn, handler, {...options, user: true})
+        if (options.immediate) {
+            handler.call(Vue)
+        }
     }
 }

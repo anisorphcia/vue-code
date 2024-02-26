@@ -8,6 +8,7 @@ class watcher {
     this.exprOrfn = updateComponent
     this.cb = cb
     this.options = options
+    this.user = !!options.user
     this.id = id++
     this.deps = [] // watcher 存放 dep
     this.depsId = new Set()
@@ -15,8 +16,19 @@ class watcher {
     // 判断
     if (typeof updateComponent === 'function') {
       this.getter = updateComponent // 更新视图
+    } else {
+      // string
+      this.getter = function () {
+        let path = updateComponent.split('.')
+        let obj = vm
+        for (let i = 0; i < path.length; ++i) {
+          obj = obj[path[i]]
+        }
+        return obj
+      }
     }
-    this.get()
+    this.value = this.get() // 保存watch的初始值
+
   }
 
   addDep(dep) {
@@ -30,14 +42,20 @@ class watcher {
   }
 
   run() {
-    this.get()
+    let value = this.get() // new value
+    let oldValue = this.value
+    this.value = value
+    if (this.user) {
+      this.cb.call(this.vm, value, oldValue)
+    }
   }
 
   // 初次渲染
   get() {
     pushTarget(this) // add to dep
-    this.getter() // 渲染页面
+    const value = this.getter() // 渲染页面
     popTarget() //pop
+    return value
   }
 
   // 更新
@@ -54,7 +72,7 @@ let pending = false
 function flushWatcher() {
   queue.forEach((item) => {
     item.run()
-    item.cb()
+    // item.cb()
   })
   queue = []
   has = {}

@@ -58,6 +58,9 @@
               console.log('xxx')
             },
             immediate: true
+          },
+          'a.b.c'(newValue, oldValue){
+            console.log(newValue, oldValue, 'watch abc')
           }
         },
         created() {
@@ -98,7 +101,7 @@
        *
        */
 
-      console.log('Vue', Vue)
+      console.log('Vue', vm.a.b.c = 100)
       // vue 初始渲染 -> 先初始化数据 -> 将模板进行编译 ->
       // 变成render() -> 生成虚拟节点 -> 变成真实dom -> 放入页面
     </script>
