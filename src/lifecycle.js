@@ -19,7 +19,14 @@ export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode) {
     let vm = this
     // old dom , vmode
-    vm.$el = patch(vm.$el, vnode)
+    // 区分是否是首次
+    let prevVnode = vm._node
+    if (!prevVnode) {
+      vm.$el = patch(vm.$el, vnode)
+      vm._vnode = vnode
+    } else {
+      patch(prevVnode, vnode)
+    }
   }
 }
 
